@@ -10,18 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: gitcode
         uses: actions/checkout@v4
-
-      - name: Deploy to EC2
+      - name: connection
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.IP }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PEM_KEY }}
+          host: ${{secrets.IP}}
+          username: ${{secrets.USERNAME}}
+          key: ${{secrets.PEM_KEY}}
 
           script: |
             cd /home/ubuntu/seedly
-            npm install
-            npm run build
-            pm2 restart Frontend || pm2 start npm --name "Frontend" -- run start
+            sudo npm i
+            sudo npm run build
+            pm2 restart Frontend || pm2 start npm --name "Frontend" -- run dev
