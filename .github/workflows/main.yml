@@ -20,7 +20,9 @@ jobs:
           key: ${{secrets.PEM_KEY}}
 
           script: |
-            cd /home/ubuntu/seedly
-            sudo npm i
+            cd /home/ubuntu/seedly_backend
+            git pull origin main
+            sudo npm install
             sudo npm run build
-            pm2 restart Frontend || pm2 start npm --name "Frontend" -- run dev
+            pm2 restart backend || pm2 start index.js --name "Backend"
+            pm2 save
